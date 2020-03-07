@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<exe name="SLPS_029.93" lba="23">
+	</exe>
+	<pac name="START.PAC" lba="45368">
+		<pic pacItem="8"/>
+	</pac>
+	<pac name="D_OP00.PAC" lba="33358">
+		<text pacItem="40" key="0"/><!-- special key -->
+	</pac>
+	<pac name="BD_S5A4A.PAC" lba="01517">
+		<text pacItem="6" key="58" />
+	</pac>
+	<pac name="D1_1_0.PAC" lba="05384">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_1_1A.PAC" lba="05513">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_1_1B.PAC" lba="05666">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_1_2A.PAC" lba="05819">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_1_2B.PAC" lba="05982">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_2_1A.PAC" lba="06134">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_2_1B.PAC" lba="06223">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_2_1C.PAC" lba="06313">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_2_2A.PAC" lba="06473">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_2_2B.PAC" lba="06563">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_3_1A.PAC" lba="06653">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_3_2A.PAC" lba="06827">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_3_2B.PAC" lba="06969">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_4_1A.PAC" lba="07147">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_4_2A.PAC" lba="07317">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_5_1A.PAC" lba="07422">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_5_1B.PAC" lba="07514">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_5_2A.PAC" lba="07606">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_6_1A.PAC" lba="07695">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_6_1B.PAC" lba="07777">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_6_1C.PAC" lba="07859">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_6_1D.PAC" lba="07970">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_8_1A.PAC" lba="08081">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_8_2B.PAC" lba="08177">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_9_1A.PAC" lba="08294">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_9_1B.PAC" lba="08449">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_9_2A.PAC" lba="08572">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_9_2B.PAC" lba="08700">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_9_2C.PAC" lba="08816">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D1_9_2D.PAC" lba="08944">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_1_1A.PAC" lba="09057">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_1.PAC" lba="09202">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_2A.PAC" lba="09361">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_3A1.PAC" lba="09498">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_3A2.PAC" lba="09634">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_4A.PAC" lba="09727">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_4B.PAC" lba="09818">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_2_5.PAC" lba="09986">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_3_1A.PAC" lba="10165">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_3_1B.PAC" lba="10309">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_3_3A.PAC" lba="10429">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_3_3B.PAC" lba="10519">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_4_1.PAC" lba="10609">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_5_1.PAC" lba="10718">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D2_5_3.PAC" lba="10895">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_1_1.PAC" lba="11000">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_1_3.PAC" lba="11176">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_1_4.PAC" lba="11359">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_1_5.PAC" lba="11473">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_1_6.PAC" lba="11650">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_2_1.PAC" lba="11803">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_2_2.PAC" lba="11978">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3A_3_1A.PAC" lba="12152">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D3A_3_2.PAC" lba="12342">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D3A_3_3.PAC" lba="12512">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D3B_1_1.PAC" lba="12698">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_1_2.PAC" lba="12797">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_2_1.PAC" lba="12975">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_2_2.PAC" lba="13139">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_3_1A.PAC" lba="13308">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_4_1A.PAC" lba="13443">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_4_1B.PAC" lba="13500">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_4_1C.PAC" lba="13638">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_4_2.PAC" lba="13755">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_5_1.PAC" lba="13842">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_5_1B.PAC" lba="13990">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_5_2.PAC" lba="14079">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_6_1.PAC" lba="14168">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_6_1B.PAC" lba="14300">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_6_2.PAC" lba="14425">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D3B_7_1.PAC" lba="14542">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_1_1.PAC" lba="14647">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_2_1.PAC" lba="14736">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_2_2.PAC" lba="14915">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_3_1.PAC" lba="15047">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_3_3A.PAC" lba="15183">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_3_3B.PAC" lba="15302">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_3_3C.PAC" lba="15421">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_4_1A.PAC" lba="15533">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_4_1B.PAC" lba="15669">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4A_4_2.PAC" lba="15814">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_1_1A.PAC" lba="15973">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_1_1C.PAC" lba="16139">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_1_1E.PAC" lba="16326">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_2_1.PAC" lba="16497">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_2_2A.PAC" lba="16677">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_3_1A.PAC" lba="16850">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_4_1.PAC" lba="17017">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_4_2.PAC" lba="17102">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D4B_4_3.PAC" lba="17238">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_1_1A.PAC" lba="17400">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_1_1D.PAC" lba="17531">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_1_1E.PAC" lba="17647">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_1_2A.PAC" lba="17764">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_1_2B.PAC" lba="17879">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_1_2C.PAC" lba="17989">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_2_1A.PAC" lba="18105">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_2_1B.PAC" lba="18227">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_3_1.PAC" lba="18356">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_3_2.PAC" lba="18504">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_4_1A.PAC" lba="18640">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D5A_4_1B.PAC" lba="18735">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D5A_4_2.PAC" lba="18907">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D5A_4_3.PAC" lba="19067">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D5A_4_3B.PAC" lba="19238">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D5A_4_4.PAC" lba="19421">
+		<text pacItem="6" key="30" />
+	</pac>
+	<pac name="D5A_4_5.PAC" lba="19599">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_4_7.PAC" lba="19779">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_4_7B.PAC" lba="19929">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5A_4_8.PAC" lba="20096">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_1_1A.PAC" lba="20262">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_1_1B.PAC" lba="20441">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_2_1A.PAC" lba="20566">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_2_1B.PAC" lba="20683">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_2_2.PAC" lba="20810">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_2_2B.PAC" lba="20932">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_2_3.PAC" lba="21068">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_2_4.PAC" lba="21204">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_1A.PAC" lba="21347">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_1B.PAC" lba="21485">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_1C.PAC" lba="21631">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_1E.PAC" lba="21771">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_1F.PAC" lba="21960">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_2A.PAC" lba="22103">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_2B.PAC" lba="22270">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_2C.PAC" lba="22400">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_2D.PAC" lba="22558">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D5B_3_2E.PAC" lba="22696">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_1_1A.PAC" lba="22848">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_1_1B.PAC" lba="22917">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_1_2.PAC" lba="23086">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_2_0.PAC" lba="23233">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_2_1A.PAC" lba="23370">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_2_1B.PAC" lba="23505">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_3_1.PAC" lba="23633">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_3_2.PAC" lba="23747">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_3_3.PAC" lba="23906">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_4_1A.PAC" lba="24014">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_4_2.PAC" lba="24150">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_4_3.PAC" lba="24286">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_5_1A.PAC" lba="24413">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_5_1B.PAC" lba="24590">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_5_2A2.PAC" lba="24685">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_5_2A3.PAC" lba="24862">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_5_2B.PAC" lba="25039">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_0.PAC" lba="25150">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_1A.PAC" lba="25324">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_1B.PAC" lba="25409">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_1C.PAC" lba="25551">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_1D.PAC" lba="25635">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_1E.PAC" lba="25776">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_1F.PAC" lba="25884">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_2.PAC" lba="26026">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_3.PAC" lba="26206">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D6_6_4.PAC" lba="26306">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_1_1A.PAC" lba="26467">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_1_1C.PAC" lba="26612">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_1_2.PAC" lba="26800">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_1_3.PAC" lba="26982">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_1_4.PAC" lba="27171">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_2_1.PAC" lba="27358">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_2_3.PAC" lba="27522">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_3_1.PAC" lba="27648">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_4_1.PAC" lba="27752">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_5_1.PAC" lba="27863">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_5_2.PAC" lba="28019">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_5_3.PAC" lba="28166">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_5_4.PAC" lba="28261">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_6_1.PAC" lba="28387">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_7_1.PAC" lba="28541">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_8_1.PAC" lba="28668">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_8_2.PAC" lba="28763">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_9_1.PAC" lba="28876">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_9_2.PAC" lba="29007">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_9_3.PAC" lba="29151">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_A_1.PAC" lba="29268">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_A_3.PAC" lba="29421">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_A_4.PAC" lba="29593">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D7_A_5.PAC" lba="29677">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_1_1A.PAC" lba="29757">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_1_2.PAC" lba="29920">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_1_3.PAC" lba="30039">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_2_1.PAC" lba="30208">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_2_2.PAC" lba="30324">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_2_3.PAC" lba="30505">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_3_1.PAC" lba="30648">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_3_2.PAC" lba="30764">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_3_3.PAC" lba="30900">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_4_1.PAC" lba="31037">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_1.PAC" lba="31207">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_2.PAC" lba="31393">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_3.PAC" lba="31565">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_4.PAC" lba="31745">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_4A.PAC" lba="31931">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_4B.PAC" lba="32119">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_5.PAC" lba="32298">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_6.PAC" lba="32436">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="D8_5_6B.PAC" lba="32578">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_AB00.PAC" lba="48578">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_AB01.PAC" lba="48732">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_AB02.PAC" lba="48869">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_AB03.PAC" lba="49035">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_AB04.PAC" lba="49180">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM1A2A.PAC" lba="49322">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM1A4A.PAC" lba="49430">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM2A2A.PAC" lba="49577">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM2A5A.PAC" lba="49640">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM3A3C.PAC" lba="49801">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM4A3A.PAC" lba="49915">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_DM5A4B.PAC" lba="50052">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A1A.PAC" lba="50286">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A2A.PAC" lba="50447">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A3A.PAC" lba="50615">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A4A.PAC" lba="50796">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A5A.PAC" lba="50976">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A6A.PAC" lba="51129">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST1A7A.PAC" lba="51261">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST2A2A.PAC" lba="51409">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST2A3A.PAC" lba="51563">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST2A3B.PAC" lba="51671">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST2A5A.PAC" lba="51796">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3A1A.PAC" lba="51937">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3A2A.PAC" lba="52097">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3A3A.PAC" lba="52254">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3A3B.PAC" lba="52411">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3A3C.PAC" lba="52592">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3B4A.PAC" lba="52762">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST3B5A.PAC" lba="52934">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST4A3A.PAC" lba="53067">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST4A3B.PAC" lba="53191">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST4B1A.PAC" lba="53322">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST4B4A.PAC" lba="53497">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST5A1A.PAC" lba="53614">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST5A3A.PAC" lba="53741">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST5A4A.PAC" lba="53845">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST5A4B.PAC" lba="54019">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST5B2A.PAC" lba="54182">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST5B2B.PAC" lba="54297">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST6A3A.PAC" lba="54427">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST6A5A.PAC" lba="54595">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST6A5B.PAC" lba="54740">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST6A5C.PAC" lba="54904">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST6A5D.PAC" lba="55075">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST7A2A.PAC" lba="55225">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="Z_ST7A5A.PAC" lba="55356">
+		<text pacItem="6" key="28" />
+	</pac>
+	<pac name="SCENE.PAC" lba="33720">
+		<text pacItem="0" key="118" />
+		<text pacItem="1" key="0" /><!-- special key -->
+	</pac>
+</xml>
