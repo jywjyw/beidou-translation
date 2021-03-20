@@ -1,23 +1,86 @@
-package my.hack;
+/**
+ * Distribution License:
+ * JSword is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License, version 2.1 or later
+ * as published by the Free Software Foundation. This program is distributed
+ * in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even
+ * the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ *
+ * The License is available on the internet at:
+ *      http://www.gnu.org/copyleft/lgpl.html
+ * or by writing to:
+ *      Free Software Foundation, Inc.
+ *      59 Temple Place - Suite 330
+ *      Boston, MA 02111-1307, USA
+ *
+ * © CrossWire Bible Society, 2007 - 2016
+ *
+ */
+package my.util;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 
-import my.Conf;
-
-public class LZSS  {
+public class Lzss  {
 	
-	public static void main(String[] args) throws IOException {
-		new LZSS(new FileInputStream(Conf.getRawFile("D1_1_0-6.raw"))).compress();
-	}
 	
-	InputStream input;
-    private static final int BUF_SIZE = 2048;
+	 /**
+     * This is the size of the ring buffer. It is set to 4K. It is important to
+     * note that a position within the ring buffer requires 12 bits.
+     */
+    private static final short RING_SIZE = 4096;	//N
 
-    public LZSS(InputStream input) {
+    /**
+     * This is used to determine the next position in the ring buffer, from 0 to
+     * RING_SIZE - 1. The idiom s = (s + 1) &amp; RING_WRAP; will ensure this. This
+     * only works if RING_SIZE is a power of 2. Note this is slightly faster
+     * than the equivalent: s = (s + 1) % RING_SIZE;
+     */
+    private static final short RING_WRAP = RING_SIZE - 1;
+
+    /**
+     * This is the maximum length of a character sequence that can be taken from
+     * the ring buffer. It is set to 18. Note that a length must be 3 before it
+     * is worthwhile to store a position/length pair, so the length can be
+     * encoded in only 4 bits. Or, put yet another way, it is not necessary to
+     * encode a length of 0-18, it is necessary to encode a length of 3-18,
+     * which requires 4 bits.
+     * <p>
+     * Note that the 12 bits used to store the position and the 4 bits used to
+     * store the length equal a total of 16 bits, or 2 bytes.
+     * </p>
+     */
+    private static final int MAX_STORE_LENGTH = 18;
+
+    /**
+     * It takes 2 bytes to store an offset and a length. If a character sequence
+     * only requires 1 or 2 characters to store uncompressed, then it is better
+     * to store it uncompressed than as an offset into the ring buffer.
+     * 如果未压缩字符串只有1个或2个字节的话,如果再使用二元组,将会浪费空间,因为二元组要占用2个字节
+     */
+    private static final int THRESHOLD = 3;	//当该值<3时,压缩再重解压后文本将不同,why??? 
+
+    /**
+     * Used to mark nodes as not used.
+     */
+    private static final short NOT_USED = RING_SIZE;
+
+    
+    /**
+     * Create an LZSS that is capable of transforming the input.
+     * 
+     * @param input
+     *            to compress or uncompress.
+     */
+	private InputStream input;
+    public Lzss(InputStream input) {
     	this.input=input;
         ringBuffer = new byte[RING_SIZE + MAX_STORE_LENGTH - 1];
         dad = new short[RING_SIZE + 1];
@@ -25,8 +88,13 @@ public class LZSS  {
         rightSon = new short[RING_SIZE + 257];
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.crosswire.common.compress.Compressor#compress()
+     */
     public ByteArrayOutputStream compress() throws IOException {
-        out = new ByteArrayOutputStream(BUF_SIZE);
+        out = new ByteArrayOutputStream();
 
         short i; // an iterator
         short r; // node number in the binary tree
@@ -34,13 +102,22 @@ public class LZSS  {
         short len; // length of initial string
         short lastMatchLength; // length of last match
         short codeBufPos; // position in the output buffer
-        byte[] codeBuff = new byte[17]; // the output buffer
+        byte[] codeBuff = new byte[17]; //压缩缓冲区. 存放标志字节+8个原始字符或编码后的2元组,每处理8个后输出并清空,容量为1+8*2=17Byte
         byte mask; // bit mask for byte 0 of out input
         byte c; // character read from string
 
         // Start with a clean tree.
         initTree();
 
+        // codeBuff[0] works as eight flags. A "1" represents that the
+        // unit is an unencoded letter (1 byte), and a "0" represents
+        // that the next unit is a <position,length> pair (2 bytes).
+        //
+        // codeBuff[1..16] stores eight units of code. Since the best
+        // we can do is store eight <position,length> pairs, at most 16
+        // bytes are needed to store this.
+        //
+        // This is why the maximum size of the code buffer is 17 bytes.
         codeBuff[0] = 0;
         codeBufPos = 1;
 
@@ -81,11 +158,9 @@ public class LZSS  {
 
         len = (short) readResult;
 
-        // Insert the MAX_STORE_LENGTH strings, each of which begins with one or
-        // more
-        // 'space' characters. Note the order in which these strings
-        // are inserted. This way, degenerate trees will be less likely
-        // to occur.
+        // Insert the MAX_STORE_LENGTH strings, each of which begins with one or more 'space' characters. 
+        // Note the order in which these strings are inserted. 
+        // This way, degenerate trees will be less likely to occur.
         for (i = 1; i <= MAX_STORE_LENGTH; i++) {
             insertNode((short) (r - i));
         }
@@ -116,6 +191,12 @@ public class LZSS  {
 
                 // The next 16 bits need to contain the position (12 bits)
                 // and the length (4 bits).
+            	/**
+            	 * 第1个字节:pos的0~7位
+            	 * 第2个字节:从低位到高位分别是:len0,len1,len2,len3,pos8,pos9,pos10,pos11
+            	 * 由于pos占12位,所以只取pos的8~11位组成第2个字节
+            	 * 由于len占4位,所以只取len的0~3位组成第2个字节
+            	 */
                 codeBuff[codeBufPos++] = (byte) matchPosition;
                 codeBuff[codeBufPos++] = (byte) (((matchPosition >> 4) & 0xF0) | (matchLength - THRESHOLD));
             }
@@ -186,6 +267,7 @@ public class LZSS  {
                 // Increment the position, and wrap around when we're at
                 // the end. Note that this relies on RING_SIZE being a power of
                 // 2.
+//                System.out.println("r="+r+",s="+s);
                 s = (short) ((s + 1) & RING_WRAP);
                 r = (short) ((r + 1) & RING_WRAP);
 
@@ -199,10 +281,8 @@ public class LZSS  {
             // to process.
             while (i++ < lastMatchLength) {
                 deleteNode(s);
-
                 s = (short) ((s + 1) & RING_WRAP);
                 r = (short) ((r + 1) & RING_WRAP);
-
                 // Note that len hitting 0 is the key that causes the
                 // do...while() to terminate. This is the only place
                 // within the loop that len is modified.
@@ -230,7 +310,6 @@ public class LZSS  {
         return out;
     }
 
-    
     /**
      * Initializes the tree nodes to "empty" states.
      */
@@ -279,58 +358,56 @@ public class LZSS  {
      *            character that is used to identify a tree node.
      */
     private void insertNode(short pos) {
-        assert pos >= 0 && pos < RING_SIZE;
-
         int cmp = 1;
         short key = pos;
 
         // The last 256 entries in rightSon contain the root nodes for
         // strings that begin with a letter. Get an index for the
         // first letter in this string.
-        short p = (short) (RING_SIZE + 1 + (ringBuffer[key] & 0xFF));
-        assert p > RING_SIZE;
+        short p = (short) (RING_SIZE + 1 + (ringBuffer[key] & 0xFF));	//rson多分配的256个元素空间，P指向索引根节点
+        if(pos<0||pos>=RING_SIZE||p<=RING_SIZE) throw new RuntimeException();
 
         // Set the left and right tree nodes for this position to "not used."
         leftSon[pos] = NOT_USED;
-        rightSon[pos] = NOT_USED;
+        rightSon[pos] = NOT_USED;//r扮演了两个角色，作为树的节点和缓冲区中的位置
 
         // Haven't matched anything yet.
         matchLength = 0;
 
         while (true) {
-            if (cmp >= 0) {
-                if (rightSon[p] != NOT_USED) {
-                    p = rightSon[p];
+            if (cmp >= 0) {//这是进行匹配后寻径的方式，cmp大于等于0（除了根节点，cmp只在失配时改变，永远都不可能等于0），查找当前节点的右节点，反之查找左节点
+                if (rightSon[p] == NOT_USED) {
+                	rightSon[p] = pos;
+                	dad[pos] = p;
+                	return;
                 } else {
-                    rightSon[p] = pos;
-                    dad[pos] = p;
-                    return;
+                	p = rightSon[p];
                 }
             } else {
-                if (leftSon[p] != NOT_USED) {
-                    p = leftSon[p];
-                } else {
+                if (leftSon[p] == NOT_USED) {
                     leftSon[p] = pos;
                     dad[pos] = p;
                     return;
+                } else {
+                	p = leftSon[p];
                 }
             }
 
             // Should we go to the right or the left to look for the
             // next match?
             short i = 0;
-            for (i = 1; i < MAX_STORE_LENGTH; i++) {
+            for (i = 1; i < MAX_STORE_LENGTH; i++) {	 //对左节点进行匹配操作，更新cmp
                 cmp = (ringBuffer[key + i] & 0xFF) - (ringBuffer[p + i] & 0xFF);
                 if (cmp != 0) {
                     break;
                 }
             }
 
-            if (i > matchLength) {
+            if (i > matchLength) {	//全局变量match_length就是最大匹配长度
                 matchPosition = p;
                 matchLength = i;
 
-                if (i >= MAX_STORE_LENGTH) {
+                if (i >= MAX_STORE_LENGTH) {//为什么mathch_length不能超过F，因为压缩元只为长度预留了4位空间，压缩的大小只能是3-18，比他小没意义，比他大装不下
                     break;
                 }
             }
@@ -350,7 +427,7 @@ public class LZSS  {
         }
 
         // Remove "p"
-        dad[p] = NOT_USED;
+        dad[p] = NOT_USED;//干净利索的删除
     }
 
     /**
@@ -360,7 +437,7 @@ public class LZSS  {
      *            the node to remove
      */
     private void deleteNode(short node) {
-        assert node >= 0 && node < (RING_SIZE + 1);
+        if(node<0||node>=RING_SIZE+1) throw new RuntimeException();
 
         short q;
 
@@ -400,47 +477,101 @@ public class LZSS  {
 
         dad[node] = NOT_USED;
     }
+    
 
-    /**
-     * This is the size of the ring buffer. It is set to 4K. It is important to
-     * note that a position within the ring buffer requires 12 bits.
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.crosswire.common.compress.Compressor#uncompress(int)
      */
-    private static final short RING_SIZE = 4096;
+    public ByteArrayOutputStream uncompress() throws IOException {
+        out = new ByteArrayOutputStream();
 
-    /**
-     * This is used to determine the next position in the ring buffer, from 0 to
-     * RING_SIZE - 1. The idiom s = (s + 1) &amp; RING_WRAP; will ensure this. This
-     * only works if RING_SIZE is a power of 2. Note this is slightly faster
-     * than the equivalent: s = (s + 1) % RING_SIZE;
-     */
-    private static final short RING_WRAP = RING_SIZE - 1;
+        byte[] c = new byte[MAX_STORE_LENGTH]; // an array of chars
+        byte flags; // 8 bits of flags
 
-    /**
-     * This is the maximum length of a character sequence that can be taken from
-     * the ring buffer. It is set to 18. Note that a length must be 3 before it
-     * is worthwhile to store a position/length pair, so the length can be
-     * encoded in only 4 bits. Or, put yet another way, it is not necessary to
-     * encode a length of 0-18, it is necessary to encode a length of 3-18,
-     * which requires 4 bits.
-     * <p>
-     * Note that the 12 bits used to store the position and the 4 bits used to
-     * store the length equal a total of 16 bits, or 2 bytes.
-     * </p>
-     */
-    private static final int MAX_STORE_LENGTH = 18;
+        // Initialize the ring buffer with a common string.
+        //
+        // Note that the last MAX_STORE_LENGTH bytes of the ring buffer are not
+        // filled.
+        // r is a nodeNumber
+        int r = RING_SIZE - MAX_STORE_LENGTH;
+        Arrays.fill(ringBuffer, 0, r, (byte) ' ');
 
-    /**
-     * It takes 2 bytes to store an offset and a length. If a character sequence
-     * only requires 1 or 2 characters to store uncompressed, then it is better
-     * to store it uncompressed than as an offset into the ring buffer.
-     */
-    private static final int THRESHOLD = 3;
+        flags = 0;
+        int flagCount = 0; // which flag we're on
 
-    /**
-     * Used to mark nodes as not used.
-     */
-    private static final short NOT_USED = RING_SIZE;
+        while (true) {
+            // If there are more bits of interest in this flag, then
+            // shift that next interesting bit into the 1's position.
+            //
+            // If this flag has been exhausted, the next byte must be a flag.
+            if (flagCount > 0) {
+                flags = (byte) (flags >> 1);
+                flagCount--;
+            } else {
+                // Next byte must be a flag.
+                int readResult = input.read();
+                if (readResult == -1) {
+                    break;
+                }
 
+                flags = (byte) (readResult & 0xFF);
+
+                // Set the flag counter. While at first it might appear
+                // that this should be an 8 since there are 8 bits in the
+                // flag, it should really be a 7 because the shift must
+                // be performed 7 times in order to see all 8 bits.
+                flagCount = 7;
+            }
+
+            // If the low order bit of the flag is now set, then we know
+            // that the next byte is a single, unencoded character.
+            if ((flags & 1) != 0) {
+                if (input.read(c, 0, 1) != 1) {
+                    break;
+                }
+
+                out.write(c[0]);
+
+                // Add to buffer, and increment to next spot. Wrap at end.
+                ringBuffer[r] = c[0];
+                r = (short) ((r + 1) & RING_WRAP);
+            } else {
+                // Otherwise, we know that the next two bytes are a
+                // <position,length> pair. The position is in 12 bits and
+                // the length is in 4 bits.
+                if (input.read(c, 0, 2) != 2) {
+                    break;
+                }
+
+                // Convert these two characters into the position and
+                // length in the ringBuffer. Note that the length is always at
+                // least
+                // THRESHOLD, which is why we're able to get a length
+                // of 18 out of only 4 bits.
+                short pos = (short) ((c[0] & 0xFF) | ((c[1] & 0xF0) << 4));
+                short len = (short) ((c[1] & 0x0F) + THRESHOLD);
+
+                // There are now "len" characters at position "pos" in
+                // the ring buffer that can be pulled out. Note that
+                // len is never more than MAX_STORE_LENGTH.
+                for (int k = 0; k < len; k++) {
+                    c[k] = ringBuffer[(pos + k) & RING_WRAP];
+
+                    // Add to buffer, and increment to next spot. Wrap at end.
+                    ringBuffer[r] = c[k];
+                    r = (r + 1) & RING_WRAP;
+                }
+
+                // Add the "len" characters to the output stream.
+                out.write(c, 0, len);
+            }
+        }
+        return out;
+    }
+
+   
     /**
      * A text buffer. It contains "nodes" of uncompressed text that can be
      * indexed by position. That is, a substring of the ring buffer can be

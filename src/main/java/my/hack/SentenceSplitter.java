@@ -3,7 +3,7 @@ package my.hack;
 import java.io.IOException;
 import java.io.StringReader;
 
-import common.Util;
+import my.util.Util;
 
 
 public class SentenceSplitter {

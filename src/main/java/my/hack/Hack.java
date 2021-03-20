@@ -7,15 +7,15 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import common.Conf;
-import common.Img4bitUtil;
-import common.IsoPatcher;
-import common.Palette;
-import common.Util;
-import common.VramImg;
+import my.Conf;
 import my.PacRebuilder;
 import my.PacSplitter;
 import my.pic.Fontlib;
+import my.util.Img4bitUtil;
+import my.util.IsoPatcher;
+import my.util.Palette;
+import my.util.Util;
+import my.util.VramImg;
 
 public class Hack {
 	
@@ -24,12 +24,12 @@ public class Hack {
 		Util.copyFile(Conf.pacDir+Conf.EXE, exe);
 		
 		String splitDir = Conf.desktop + "beidousplit/",
-				excel="C:\\Users\\lenovo\\Documents\\Tencent Files\\329682470\\FileRecv\\beidou.xlsx",
-				txt=Conf.getTranslateFile("beidou.txt");
+				excel=Conf.getTranslateFile("beidou.xlsx"),
+				idx=Conf.getTranslateFile("beidou.idx");
 		PacSplitter.split(Conf.pacDir, splitDir);
 		Encoding enc=new Encoding();
 		
-		new ScriptsImporter().import_(splitDir, excel, txt, enc);
+		new ScriptsImporter().import_(splitDir, excel, idx, enc);
 		
 		VramImg fontlib=FourLayerFontGen.gen(enc.convertToGlyphs(enc.fillGlyph()), 256, 256);
 		enc.saveAsTbl(Conf.outDir+"beidou-enc.tbl");

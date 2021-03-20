@@ -13,8 +13,8 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
-import common.Conf;
-import common.RscLoader;
+import my.Conf;
+import my.util.RscLoader;
 
 public class GlyphDrawer {
 	

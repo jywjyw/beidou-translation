@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import common.Util;
-import common.VramImg;
+import my.util.Util;
+import my.util.VramImg;
 
 public class Picpack {
 	

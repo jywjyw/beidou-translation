@@ -25,12 +25,12 @@ public class PacConfigLoader{
 		}
 	}
 	
-	public interface Callback{
+	public interface OnFoundTextOrItemElement{
 		public void do_(String pac, Object...value);
 	}
 	
 	
-	public static void loadExtractionConfig(Callback cb){
+	public static void loadExtractionConfig(OnFoundTextOrItemElement cb){
 		try {
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("pac.xml");
 			Document doc = new SAXReader().read(is);
@@ -44,7 +44,7 @@ public class PacConfigLoader{
 		}
 	}
 	
-	public static void loadTextConfig(Callback cb){
+	public static void loadTextConfig(OnFoundTextOrItemElement cb){
 		try {
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("pac.xml");
 			Document doc = new SAXReader().read(is);

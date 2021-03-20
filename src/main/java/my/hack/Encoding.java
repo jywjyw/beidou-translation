@@ -15,10 +15,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import common.RscLoader;
-import common.RscLoader.Callback;
+import my.util.RscLoader;
+import my.util.RscLoader.Callback;
+
+import java.util.Set;
 
 public class Encoding {
 	private int row=16;	//original=16,target=21

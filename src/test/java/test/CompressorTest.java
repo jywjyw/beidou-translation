@@ -11,10 +11,10 @@ import java.io.RandomAccessFile;
 import org.junit.Assert;
 import org.junit.Test;
 
-import common.Conf;
-import common.Util;
-import my.dump.Uncompressor;
+import my.Conf;
+import my.dump.Decompressor;
 import my.hack.Compressor;
+import my.util.Util;
 
 public class CompressorTest {
 	
@@ -38,7 +38,7 @@ public class CompressorTest {
 		recomp.close();
 		
 		File reuncomp=new File(Conf.desktop+"reuncomp");
-		byte[] data=new Uncompressor().uncompress(new ByteArrayInputStream(mycomp.toByteArray()), (int)raw.length(), 12);
+		byte[] data=new Decompressor().uncompress(new ByteArrayInputStream(mycomp.toByteArray()), (int)raw.length(), 12);
 		FileOutputStream reuncompOs=new FileOutputStream(reuncomp);
 		reuncompOs.write(data);
 		reuncompOs.close();

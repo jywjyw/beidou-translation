@@ -11,12 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.ExcelParser;
-import common.ExcelParser.RowCallback;
+import my.util.ExcelParser;
+import my.util.ExcelParser.RowCallback;
 
 public class ScriptsImporter {
 	
-	public void import_(String splitDir, String excel, String txt, final Encoding enc) throws IOException{
+	public void import_(String splitDir, String excel, String idx, final Encoding enc) throws IOException{
 		File f=new File(excel);
 		final Map<Integer,byte[]> sentences=new HashMap<>();
 		final List<String> err=new ArrayList<>();
@@ -40,7 +40,7 @@ public class ScriptsImporter {
 			throw new RuntimeException();
 		}
 		
-		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(txt)));
+		BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(idx)));
 		String s;
 		while((s=br.readLine())!=null){
 			String[] kv=s.split("=");

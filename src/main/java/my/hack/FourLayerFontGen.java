@@ -10,11 +10,11 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import common.Conf;
-import common.Img4bitUtil;
-import common.Palette;
-import common.VramImg;
-import common.VramImg.VramImg4bitWriter;
+import my.Conf;
+import my.util.Img4bitUtil;
+import my.util.Palette;
+import my.util.VramImg;
+import my.util.VramImg.VramImg4bitWriter;
 
 public class FourLayerFontGen {
 	

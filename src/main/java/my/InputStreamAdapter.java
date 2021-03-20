@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
 
+//RandomAccessFile > InputStream
 public class InputStreamAdapter extends InputStream{
 	
 	RandomAccessFile f;

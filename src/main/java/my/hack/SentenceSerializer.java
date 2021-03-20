@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.Arrays;
 
-import common.Conf;
+import my.Conf;
 import my.hack.SentenceSplitter.Callback;
 
 public class SentenceSerializer {

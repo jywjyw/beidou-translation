@@ -4,42 +4,47 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import common.Conf;
-import common.Img4bitUtil;
-import common.Palette;
-import common.Tuple2;
-import common.Util;
-import my.dump.Uncompressor;
+import my.Conf;
+import my.dump.Decompressor;
+import my.util.Img4bitUtil;
+import my.util.Palette;
+import my.util.Tuple2;
+import my.util.Util;
 
 public class PacDump {
 	
 	public static void main(String[] args) throws IOException {
-//		parseOne("");
+//		parseOne(new File(Conf.pacDir+"TITLE.PAC"));	//title,title2,stage
+//		parseOne(new File(Conf.desktop+"beidousplit\\TITLE.PAC\\0.raw80"));	//title,title2,stage
 		loopParse();
 	}
 	
 	public static void loopParse() throws IOException{
 		for(File f:new File(Conf.pacDir).listFiles()){
+			if(f.getName().equals(Conf.EXE)) continue;
 			File dir=new File(Conf.desktop+"beidousplit/"+f.getName());
 			if(!dir.exists()) dir.mkdir();
 			parse(f, dir.getAbsolutePath());
 		}
 	}
 	
-	public static void parseOne(String pacName) throws IOException{
-		File pac = new File(Conf.desktop+"beidou/"+pacName);
+	public static void parseOne(File pac) throws IOException{
 		File out = new File(Conf.desktop+"beidousplit/"+pac.getName());
 		out.mkdir();
 		parse(pac, out.getAbsolutePath());
 	}
+	
+	
 	
 	public static void parse(File in, String outdir) throws IOException {
 		RandomAccessFile pac=new RandomAccessFile(in, "r");
@@ -54,48 +59,66 @@ public class PacDump {
 		}
 		
 		int pacItemIndex=0;
-		byte[] subpac;
-		String name="";
+		byte[] pacItem;	//种类:压缩文件,未压缩文件,文件夹
 		for(int i=0;i<offset_size.size();i++){
 			Tuple2<Integer,Integer> e=offset_size.get(i);
 			if(e.get1()!=0 && e.get2()!=0){	//TODO 有时候offset>0&&size=0
-				subpac=new byte[e.get2()];
+				pacItem=new byte[e.get2()];
 				pac.seek(e.get1());
-				pac.read(subpac);
+				pac.read(pacItem);
 				
 				try {
-					if(subpac[0]==1)	{//compressed data
-						name=pacItemIndex+"."+Integer.toHexString(subpac[0]);
-						DataInputStream dis=new DataInputStream(new ByteArrayInputStream(subpac));
+					if(getMagicNumber(pacItem)==1)	{//1=compressed data
+						DataInputStream dis=new DataInputStream(new ByteArrayInputStream(pacItem));
 						dis.readInt();
 						int uncompLen=Util.hilo(dis.readInt());
 						int key=Util.hilo(dis.readInt())&0xffff;
 						dis.readInt();//unk
-						subpac=new Uncompressor().uncompress(dis, uncompLen, key);
-						
-						if(subpac[0]==0x10){
-							dump(in.getName(), i, subpac);
+						pacItem=new Decompressor().uncompress(dis, uncompLen, key);
+						save(outdir+"/"+pacItemIndex+".1", pacItem);
+						if(pacItem[0]==0x10){
+//							dump(in.getName(), i, pacItem);
 						}
 						
-//				} else if(subpac[0]==0x80)	{//maybe means pac
+					} else if(getMagicNumber(pacItem)==0x80)	{//children directory
+						File tempRawFile = new File(outdir + "/"+pacItemIndex+".raw80");
+						save(tempRawFile.getPath(), pacItem);
+						parse(tempRawFile, outdir+"/"+pacItemIndex);
+						tempRawFile.delete();
+						
 					} else {
-						name=pacItemIndex+".raw";
+						save(outdir+"/"+pacItemIndex+".raw", pacItem);
 					}
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			} else {
-				subpac=new byte[0];
-				name=pacItemIndex+"";
+				//just blank file
+				save(outdir+"/"+pacItemIndex+".null", new byte[] {0});
 			}
-			
 			pacItemIndex++;
-			FileOutputStream os=new FileOutputStream(outdir+"/"+name);
-			os.write(subpac);
-			os.close();
 		}
-		
 		pac.close();
+	}
+	
+	private static int getMagicNumber(byte[] pacItem) {
+		ByteBuffer buf = ByteBuffer.wrap(pacItem);
+		return Util.hilo(buf.getInt());
+	}
+	
+	
+	private static void save(String filePath, byte[] content) {
+		try {
+			File f = new File(filePath);
+			if(!f.getParentFile().exists())
+				f.getParentFile().mkdirs();
+			FileOutputStream os=new FileOutputStream(f);
+			os.write(content);
+			os.flush();
+			os.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private static void dump(String pac, int pacItemIndex, byte[] picpac) throws IOException{

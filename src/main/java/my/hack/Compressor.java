@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Arrays;
 
-import common.Util;
+import my.util.Util;
 
 public class Compressor  {
 	

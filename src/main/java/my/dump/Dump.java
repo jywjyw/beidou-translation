@@ -2,7 +2,7 @@ package my.dump;
 
 import java.io.IOException;
 
-import common.Conf;
+import my.Conf;
 import my.PacSplitter;
 import my.pic.AllPicture;
 

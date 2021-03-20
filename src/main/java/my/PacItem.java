@@ -5,15 +5,15 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import common.Util;
-import my.dump.Uncompressor;
+import my.dump.Decompressor;
+import my.util.Util;
 
 public class PacItem {
 	
 	public int unk,uncompLen,posBits,zero;
 	public byte[] head=new byte[16], data;
 	
-	public static PacItem load(RandomAccessFile file, int offset, int len) throws IOException{
+	public static PacItem decompress(RandomAccessFile file, int offset, int len) throws IOException{
 		PacItem i=new PacItem();
 		file.seek(offset);
 		
@@ -24,7 +24,7 @@ public class PacItem {
 		i.posBits=Util.hilo(dis.readInt())&0xffff;
 		i.zero=dis.readInt();//TODO unk, maybe is fixed to 0
 		
-		i.data = new Uncompressor().uncompress(new InputStreamAdapter(file), i.uncompLen, i.posBits);
+		i.data = new Decompressor().uncompress(new InputStreamAdapter(file), i.uncompLen, i.posBits);
 		return i;
 	}
 	

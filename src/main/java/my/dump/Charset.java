@@ -3,8 +3,8 @@ package my.dump;
 import java.util.HashMap;
 import java.util.Map;
 
-import common.RscLoader;
-import common.RscLoader.Callback;
+import my.util.RscLoader;
+import my.util.RscLoader.Callback;
 
 public class Charset {
 	Map<Integer,String> code_char = new HashMap<>();

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xml>
+	<!-- key代表文本里一个关键地址,该地址起,每8个字节为kv,k=文本指针区offset,v=文本指针区size),
+	当读至00000000时,读取结束. 
+	一个文本中有许多文本指针区,指向的基本是相同的文本区.
+	找到该key的关键是该地址前面往往有00000000fdffffff. 但有的文本并没有此地址,因此需要手动查找文本区
+	-->
 	<exe name="SLPS_029.93" lba="23">
 	</exe>
 	<pac name="START.PAC" lba="45368">
@@ -749,5 +754,18 @@
 	<pac name="SCENE.PAC" lba="33720">
 		<text pacItem="0" key="118" />
 		<text pacItem="1" key="0" /><!-- special key -->
+	</pac>
+	
+	<!-- TODO 如何导出和合并?
+	这3个pac的指针区从0x2地址起始,前2个字节为指针个数222H,4~443H为指针区,44a~末尾为文本区
+	 -->
+	<pac name="STAGE.PAC/0" lba="45326">
+		<text pacItem="1" key="0"/>
+	</pac>
+	<pac name="TITLE.PAC/0" lba="45540">
+		<text pacItem="1" key="0"/>
+	</pac>
+	<pac name="TITLE2.PAC/0" lba="45599">
+		<text pacItem="1" key="0"/>
 	</pac>
 </xml>

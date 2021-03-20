@@ -19,9 +19,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import common.Util;
 import my.PacConfigLoader;
-import my.PacConfigLoader.Callback;
+import my.PacConfigLoader.OnFoundTextOrItemElement;
+import my.util.Util;
 
 public class ScriptsExporter {
 	
@@ -37,15 +37,15 @@ public class ScriptsExporter {
 	}
 	
 	private void exportPacs(final String splitDir)throws IOException{
-		PacConfigLoader.loadTextConfig(new Callback() {  
+		PacConfigLoader.loadTextConfig(new OnFoundTextOrItemElement() {  
 			@Override
 			public void do_(final String pac, final Object... value) {
 				try {
 					final String pacName=pac.replace(".PAC", "");
 					RandomAccessFile f=new RandomAccessFile(splitDir+pacName+"/"+value[0], "r");
-if(pacName.equals("SCENE")&&value[0].equals("1"))
-	System.out.println("");
 					for(Entry<Integer,Integer> pointerArea : readPointerAreas(pacName, f, Integer.parseInt(value[1]+"",16)).entrySet()){
+						if(pac.contains("STAGE"))
+							System.out.println();
 						f.seek(pointerArea.getKey());
 						for(int p : readPointers(f, pointerArea.getValue())){
 							f.seek(pointerArea.getKey()+p);
@@ -79,32 +79,40 @@ if(pacName.equals("SCENE")&&value[0].equals("1"))
 	 * @param pac
 	 * @param f
 	 * @param keyAddr
-	 * @return offset,size
+	 * @return multiple pointerAreas. k=offset, v=size
 	 * @throws IOException
 	 */
 	private Map<Integer,Integer> readPointerAreas(String pac, RandomAccessFile f, int keyAddr) throws IOException{
 		if(pac.equals("D_OP00")) 
 			return Collections.singletonMap(0,0x20a);	//v=pac bytes length
-		else if(pac.equals("SCENE") && keyAddr==0) {
+		else if(pac.equals("SCENE") && keyAddr==0) 
 			return Collections.singletonMap(0, 0x19fa);
-		}
+		else if(pac.contains("STAGE")||pac.contains("TITLE")||pac.contains("TITLE2"))
+			return Collections.singletonMap(0, 0xf9a);
 		
 		Map<Integer,Integer> ret=new LinkedHashMap<>();
 		f.seek(keyAddr);
 		while(true){
 			int offset = Util.hilo(f.readInt()), 
-				size=Util.hilo(f.readInt())+2;
+				blockBytes=Util.hilo(f.readInt())+2;	//block=unk(2Bytes)+pointerCount(2Bytes)+pointers+text
 			if(offset==0) {
 				break;
 			}else {
-				ret.put(offset, size);
+				ret.put(offset, blockBytes);
 			}
 		}
 		return ret;
 	}
 	
+	/**
+	 * 
+	 * @param f
+	 * @param size
+	 * @return pointers. 
+	 * @throws IOException
+	 */
 	private Set<Integer> readPointers(RandomAccessFile f, int size) throws IOException{
-		short unk=f.readShort();
+		short unk=f.readShort();	//每个指针区块前都有4个字节,前2个字节未知,后2个字节代表有多少个指针
 		short pointerCount = Util.hiloShort(f.readShort());
 		Set<Integer> ret=new LinkedHashSet<>();
 		for(int i=0;i<pointerCount;i++){
@@ -157,7 +165,7 @@ if(pacName.equals("SCENE")&&value[0].equals("1"))
 			}
 		}
 		
-		PrintWriter pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(targetDir+"beidou.txt")));
+		PrintWriter pw=new PrintWriter(new OutputStreamWriter(new FileOutputStream(targetDir+"beidou.idx")));
 		for(Entry<String,Map<Integer,Integer>> e:pac_addr.entrySet()){
 			pw.write(e.getKey());
 			pw.write("=");

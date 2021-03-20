@@ -7,11 +7,11 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import common.Conf;
-import common.Img4bitUtil;
-import common.Palette;
-import common.VramImg;
+import my.Conf;
 import my.Picpack;
+import my.util.Img4bitUtil;
+import my.util.Palette;
+import my.util.VramImg;
 
 public class Fontlib {
 	
