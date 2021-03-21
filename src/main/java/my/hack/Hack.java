@@ -24,7 +24,8 @@ public class Hack {
 		Util.copyFile(Conf.pacDir+Conf.EXE, exe);
 		
 		String splitDir = Conf.desktop + "beidousplit/",
-				excel=Conf.getTranslateFile("beidou.xlsx"),
+//				excel=Conf.getTranslateFile("beidou.xlsx"),
+				excel="C:\\Users\\lenovo\\Documents\\Tencent Files\\329682470\\FileRecv\\简体版.xlsx",
 				idx=Conf.getTranslateFile("beidou.idx");
 		PacSplitter.split(Conf.pacDir, splitDir);
 		Encoding enc=new Encoding();

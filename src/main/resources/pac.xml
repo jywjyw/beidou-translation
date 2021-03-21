@@ -756,7 +756,7 @@
 		<text pacItem="1" key="0" /><!-- special key -->
 	</pac>
 	
-	<!-- TODO 如何导出和合并?
+	<!-- 
 	这3个pac的指针区从0x2地址起始,前2个字节为指针个数222H,4~443H为指针区,44a~末尾为文本区
 	 -->
 	<pac name="STAGE.PAC/0" lba="45326">
@@ -767,5 +767,27 @@
 	</pac>
 	<pac name="TITLE2.PAC/0" lba="45599">
 		<text pacItem="1" key="0"/>
+	</pac>
+	
+	<pac name="BDEMO171.PAC" lba="502">
+		<text pacItem="6" key="58"/>
+	</pac>
+	<pac name="BDEMO181.PAC" lba="624">
+		<text pacItem="6" key="58"/>
+	</pac>
+	<pac name="BDEMO3B7.PAC" lba="749">
+		<text pacItem="6" key="58"/>
+	</pac>
+	<pac name="BDEMO4A4.PAC" lba="876">
+		<text pacItem="6" key="58"/>
+	</pac>
+	<pac name="BDEMO4B2.PAC" lba="1066">
+		<text pacItem="6" key="58"/>
+	</pac>
+	<pac name="BDEMO632.PAC" lba="1220">
+		<text pacItem="6" key="58"/>
+	</pac>
+	<pac name="BDEMO712.PAC" lba="1353">
+		<text pacItem="6" key="58"/>
 	</pac>
 </xml>
