@@ -7,5 +7,5 @@ Serial: SLPS_029.93
 Chinese translation project. finished.
   
   
-![](https://raw.githubusercontent.com/jywjyw/beidou-translation/master/raw/capture.jpg)
+![](https://github.com/jywjyw/beidou-translation/blob/master/raw/capture.jpg?raw=true)
 
