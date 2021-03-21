@@ -81,6 +81,7 @@ public class PacDump {
 						}
 						
 					} else if(getMagicNumber(pacItem)==0x80)	{//children directory
+						System.out.println("含有80: pacItemIndex="+pacItemIndex+",pac="+in.getName());
 						File tempRawFile = new File(outdir + "/"+pacItemIndex+".raw80");
 						save(tempRawFile.getPath(), pacItem);
 						parse(tempRawFile, outdir+"/"+pacItemIndex);

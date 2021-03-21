@@ -1,12 +1,11 @@
 package my;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import my.PacConfigLoader.OnFoundTextOrItemElement;
+import my.PacConfigLoader.PacConfigLoaderCallback;
 import my.util.Util;
 
 public class PacSplitter {
@@ -16,10 +15,10 @@ public class PacSplitter {
 	}
 	
 	public static void split(final String srcDir, final String dstDir){
-		PacConfigLoader.loadExtractionConfig(new OnFoundTextOrItemElement() {
+		PacConfigLoader.loadExtractionConfig(new PacConfigLoaderCallback() {
 			
 			@Override
-			public void do_(String pac, Object... value) {
+			public void onFoundTextOrItemElement(String pac, Object... value) {
 				try {
 					if(pac.contains("/")) {
 						String[] arr = pac.split("/");

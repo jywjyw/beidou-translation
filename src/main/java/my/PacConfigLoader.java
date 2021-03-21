@@ -4,6 +4,8 @@ import java.io.InputStream;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
@@ -25,18 +27,14 @@ public class PacConfigLoader{
 		}
 	}
 	
-	public interface OnFoundTextOrItemElement{
-		public void do_(String pac, Object...value);
-	}
 	
-	
-	public static void loadExtractionConfig(OnFoundTextOrItemElement cb){
+	public static void loadExtractionConfig(PacConfigLoaderCallback cb){
 		try {
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("pac.xml");
 			Document doc = new SAXReader().read(is);
 			List<Element> texts=doc.selectNodes("//text|//pic");
 			for(Element e:texts){
-				cb.do_(e.getParent().attributeValue("name"), e.attributeValue("pacItem"));
+				cb.onFoundTextOrItemElement(e.getParent().attributeValue("name"), e.attributeValue("pacItem"));
 			}
 			is.close();
 		} catch (Exception e) {
@@ -44,13 +42,40 @@ public class PacConfigLoader{
 		}
 	}
 	
-	public static void loadTextConfig(OnFoundTextOrItemElement cb){
+	
+	public interface PacConfigLoaderCallback{
+		public default void onFoundTextOrItemElement(String pac, Object...value) {}
+		public default void onEveryPac(String pac, List<Integer> pacItems){}
+	}
+	
+	/**
+	 * for rebuilding pac
+	 */
+	public static void iteratePac4Rebuild(PacConfigLoaderCallback cb){
+		try {
+			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("pac.xml");
+			Document doc = new SAXReader().read(is);
+			((List<Element>)doc.selectNodes("//pac")).forEach(pac -> {
+				List<Integer> pacItems = ((List<Element>)pac.elements())
+				.stream()
+				.map(e -> Integer.parseInt(e.attributeValue("pacItem")))
+				.collect(Collectors.toList());
+				cb.onEveryPac(pac.attributeValue("name"), pacItems);
+			});
+			is.close();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	public static void loadTextConfig(PacConfigLoaderCallback cb){
 		try {
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("pac.xml");
 			Document doc = new SAXReader().read(is);
 			List<Element> texts=doc.selectNodes("//text");
 			for(Element e:texts){
-				cb.do_(e.getParent().attributeValue("name"), 
+				cb.onFoundTextOrItemElement(e.getParent().attributeValue("name"), 
 						e.attributeValue("pacItem"), e.attributeValue("key"));
 			}
 			is.close();
@@ -58,6 +83,13 @@ public class PacConfigLoader{
 			throw new RuntimeException(e);
 		}
 	}
+
+
+
+
+
+
+
 	
 	
 }

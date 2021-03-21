@@ -14,12 +14,15 @@ import my.Conf;
 public class HexSearcher {
 	
 	public static void main(String[] args) throws IOException {
-		String dir = Conf.desktop+"beidousplit\\";
+//		String dir = Conf.desktop+"beidousplit\\";
 //		String dir = Conf.desktop+"raw\\";
-//		String dir = "e:/hanhua/beidou";
+		String dir = "e:/hanhua/beidou";
+//		String dir = "e:/hanhua/beidouhack";
 		System.out.println("searching...");
-		HexSearcher.searchDir(dir, "04EA08A30433092D", null);	//使用可能
+//		HexSearcher.searchDir(dir, "04EA08A30433092D", null);	//使用可能
 //		HexSearcher.searchDir(dir, "00B200E800D100A0", null);	//na li ma si ta
+//		HexSearcher.searchDir(dir, "056100a9018301820182", null);	//
+		HexSearcher.searchDir(dir, "056100a90b60", null);	//
 		System.out.println("finish...");
 		
 //		File dir=new File("D:\\hanhua\\北斗神拳editor1218\\editor\\jp-text");

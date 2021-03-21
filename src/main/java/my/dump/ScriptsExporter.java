@@ -20,7 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import my.PacConfigLoader;
-import my.PacConfigLoader.OnFoundTextOrItemElement;
+import my.PacConfigLoader.PacConfigLoaderCallback;
 import my.util.Util;
 
 public class ScriptsExporter {
@@ -37,15 +37,13 @@ public class ScriptsExporter {
 	}
 	
 	private void exportPacs(final String splitDir)throws IOException{
-		PacConfigLoader.loadTextConfig(new OnFoundTextOrItemElement() {  
+		PacConfigLoader.loadTextConfig(new PacConfigLoaderCallback() {
 			@Override
-			public void do_(final String pac, final Object... value) {
+			public void onFoundTextOrItemElement(final String pac, final Object... value) {
 				try {
 					final String pacName=pac.replace(".PAC", "");
 					RandomAccessFile f=new RandomAccessFile(splitDir+pacName+"/"+value[0], "r");
 					for(Entry<Integer,Integer> pointerArea : readPointerAreas(pacName, f, Integer.parseInt(value[1]+"",16)).entrySet()){
-						if(pac.contains("STAGE"))
-							System.out.println();
 						f.seek(pointerArea.getKey());
 						for(int p : readPointers(f, pointerArea.getValue())){
 							f.seek(pointerArea.getKey()+p);
